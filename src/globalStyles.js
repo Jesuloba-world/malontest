@@ -26,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
   select:-webkit-autofill,
   select:-webkit-autofill:hover,
   select:-webkit-autofill:focus {
-    /* -webkit-text-fill-color: #ffffff; */
+    -webkit-text-fill-color: #3751fe;
     background: transparent;
     transition: background-color 5000s ease-in-out 0s;
   }
