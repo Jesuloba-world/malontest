@@ -59,9 +59,9 @@ Root.Input = function Element({ label, name, register, ...props }) {
 			<Input
 				{...props}
 				name={name}
+				{...register(name)}
 				onFocus={() => setFocus(true)}
 				onBlur={() => setFocus(false)}
-				{...register(name)}
 			/>
 		</InputControl>
 	);
