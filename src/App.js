@@ -1,7 +1,35 @@
 import { Root } from "./components";
 import { ReactComponent as Illustration } from "./svg/illustration.svg";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup/dist/yup";
+
+const loginSchema = yup.object().shape({
+	email: yup
+		.string()
+		.email("Invalid email address detected. Enter your valid email address")
+		.required("Enter a valid Email address"),
+	password: yup.string().min(4).max(15).required(),
+	rememberMe: yup.bool(),
+});
 
 function App() {
+	const {
+		register,
+		handleSubmit,
+		// formState: { errors },
+		reset,
+	} = useForm({
+		resolver: yupResolver(loginSchema),
+		mode: "onChange",
+	});
+
+	const handleLogin = (data) => {
+		// Handles form and sends all inputs to console
+		console.log(data);
+		reset();
+	};
+
 	return (
 		<Root>
 			<Root.MainPane>
@@ -10,14 +38,24 @@ function App() {
 					Artificial Intelligence Driving Results For The Travel
 					Industry
 				</Root.HeroText>
-				<Root.Form>
+				<Root.Form onSubmit={handleSubmit(handleLogin)}>
 					<Root.FormText>
 						Welcome back! Please login to your account.
 					</Root.FormText>
-					<Root.Input type="email" label="Email Address" />
-					<Root.Input type="password" label="Password" />
+					<Root.Input
+						type="email"
+						name="email"
+						label="Email Address"
+						register={register}
+					/>
+					<Root.Input
+						type="password"
+						name="password"
+						label="Password"
+						register={register}
+					/>
 					<Root.FormBottom>
-						<Root.Checkbox />
+						<Root.Checkbox register={register} />
 						<Root.Forget>Forgot Password?</Root.Forget>
 					</Root.FormBottom>
 					<Root.FormButtons>

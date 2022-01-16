@@ -42,15 +42,15 @@ Root.HeroText = ({ children }) => {
 	return <HeroText>{children}</HeroText>;
 };
 
-Root.Form = ({ children }) => {
-	return <Form>{children}</Form>;
+Root.Form = ({ children, ...props }) => {
+	return <Form {...props}>{children}</Form>;
 };
 
 Root.FormText = ({ children }) => {
 	return <FormText>{children}</FormText>;
 };
 
-Root.Input = function Element({ label, ...props }) {
+Root.Input = function Element({ label, name, register, ...props }) {
 	const [focus, setFocus] = useState(false);
 
 	return (
@@ -58,8 +58,10 @@ Root.Input = function Element({ label, ...props }) {
 			<Label>{label}</Label>
 			<Input
 				{...props}
+				name={name}
 				onFocus={() => setFocus(true)}
 				onBlur={() => setFocus(false)}
+				{...register(name)}
 			/>
 		</InputControl>
 	);
@@ -69,10 +71,15 @@ Root.FormBottom = ({ children }) => {
 	return <FormBottom>{children}</FormBottom>;
 };
 
-Root.Checkbox = () => {
+Root.Checkbox = ({ register }) => {
 	return (
 		<CheckControl>
-			<Checkbox type="checkbox" id="remember" />
+			<Checkbox
+				type="checkbox"
+				name="rememberMe"
+				id="remember"
+				{...register("rememberMe")}
+			/>
 			<CheckText htmlFor="remember">Remember Me</CheckText>
 		</CheckControl>
 	);

@@ -152,6 +152,7 @@ export const Bottom = styled.div`
 	display: flex;
 	justify-content: space-between;
 	margin-top: 81px;
+	padding-right: 27px;
 `;
 
 export const Link = styled.a`
